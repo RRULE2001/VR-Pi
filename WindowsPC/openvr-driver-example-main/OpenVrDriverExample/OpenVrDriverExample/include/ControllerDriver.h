@@ -1,6 +1,14 @@
 #pragma once
 #include <openvr_driver.h>
+
+#undef UNICODE
+#define UNICODE
+#undef _WINSOCKAPI_
+#define _WINSOCKAPI_
 #include <windows.h>
+#include <winsock2.h>
+
+//#include <windows.h>
 
 using namespace vr;
 
@@ -63,6 +71,8 @@ public:
 	method should be called every frame.
 	**/
 	void RunFrame();
+
+	void server_Handle(float* joystick);
 
 private:
 

@@ -1,7 +1,3 @@
-// TODO: Update I2c Reading to "high" speed 400KHz instead of 100KHz.
-// Find a good balance between reading aand sending udp messages
-// Find a better normalization method or better joystick hardware
-
 #include <bcm2835.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -223,7 +219,7 @@ int udpSend(char* msg)
 	}
 
     /* now let's send the messages */
-    //printf("Sending %d bytes to %s port %d\n",strlen(buf), server, SERVICE_PORT);
+    printf("Sending %d bytes to %s port %d\n",strlen(buf), server, SERVICE_PORT);
     if (sendto(fd, buf, strlen(buf), 0, (struct sockaddr *)&remaddr, slen)==-1)
         perror("sendto");
 
@@ -233,12 +229,10 @@ int udpSend(char* msg)
 
 int main(int argc, char **argv) 
 {
-    printf("Running Program...\n");
     startI2C();
 
     uint16_t x[3] = {0};
     uint16_t y[3] = {0};
-    
     while(1)
     {
       for(int i = 0; i < 3; i++)
@@ -270,8 +264,7 @@ int main(int argc, char **argv)
       strcat(msg, data_y);
       //gcvt(y_avg, 3, msg);
       udpSend(msg);
-      usleep(500);
-      //system("clear");
+      system("clear");
     }
 
     
